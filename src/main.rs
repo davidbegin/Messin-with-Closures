@@ -62,5 +62,43 @@ fn main() {
     // let animal_whisperer = |animal: T| animal
 
     // ...it worked! Time to read the next line of the docs
+
+    let plus_two = |x| {
+        let mut result: i32 = x;
+        result += 2;
+        result
+    };
+
+    type_printer::print_type_of(&plus_two);
+    // #=> [closure((i32,)) -> i32]
+
+    // So you don't have to declare returns for closures
+    // but they exist for the type?!?
+
+    // type annotations or generic parameter binding required
+    // let plus_three = |x| println!("hell yeah");
+
+    // alright time for the main event
+
+    println!("\n================================================");
+    the_main_event();
 }
 
+fn the_main_event() {
+    println!("
+             Closures close over thier environment.
+             And I do not know how that is going to interact with
+             borrow and move semantics.
+    ");
+
+    let mut num = 5;
+
+    // so plus_num is borrowing of num here
+    {
+        let plus_num = |x: i32| x + num;
+    }
+
+    let y = &mut num;
+
+    // but it can also take ownership if need me
+}
