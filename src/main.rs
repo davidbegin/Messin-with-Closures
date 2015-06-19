@@ -1,3 +1,4 @@
+#![allow(unused_variables, unused_mut, dead_code)]
 extern crate type_printer;
 
 fn main() {
@@ -81,7 +82,8 @@ fn main() {
     // alright time for the main event
 
     println!("\n================================================");
-    the_main_event();
+    // the_main_event();
+    young_programmer_move_that_ownership_of_environment();
 }
 
 fn the_main_event() {
@@ -101,4 +103,81 @@ fn the_main_event() {
     let y = &mut num;
 
     // but it can also take ownership if need me
+}
+
+fn young_programmer_move_that_ownership_of_environment() {
+    let num: i32 = 5;
+
+    // So this compiles fine
+    let owns_num = move |x: i32| x + num;
+    // and all it is doing is taking ownership of that 5
+
+
+    let mut num: i32 = 5;
+
+    // so move let the num unchanged?
+    // because we took ownership of a copy?
+    {
+        // let mut add_num = |x: i32| num += x;
+        let mut add_num = move |x: i32| num += x;
+        add_num(5);
+    }
+
+    // Words straight form the Docs
+
+    // Another way to think about move closures:
+    //   they give a closure its own stack frame.
+    //
+    // Without move, a closure may be tied to the stack frame that created it,
+    // while a move closure is self-contained.
+    // This means that you cannot generally return a non-move closure from a function
+
+    println!("{}", num);
+
+    // More words from the docs:
+    //
+    // Rust’s implementation of closures is a bit different than other languages.
+    // They are effectively syntax sugar for traits.
+    lemme_try_and_break_this_down();
+}
+
+def lemme_try_and_break_this_down() {
+    // pub trait Fn<Args> : FnMut<Args> {
+    //     extern "rust-call" fn call(&self, args: Args) -> Self::Output;
+    // }
+    //
+    // pub trait FnMut<Args> : FnOnce<Args> {
+    //     extern "rust-call" fn call_mut(&mut self, args: Args) -> Self::Output;
+    // }
+    //
+    // pub trait FnOnce<Args> {
+    //     type Output;
+    //
+    //     extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
+    // }
+
+
+    // #1:
+
+    // So we have a public trait called Fn
+    // this trait also requires that is declared for a type
+
+    // that type is a genric call Args
+    //
+    // this trait also requires that another trait is also implemented for
+    // the type you are implement for.
+    //
+    // and that trait is FnMut and it takes the same type as the Generic the main
+    // trait takes
+    //
+    // Ok lost me at extern "rust-call"
+    //
+    // can I look beyond?
+    //
+    // and what is Self::Output?
+    //
+    // alright rabbit hole time
+    // pub trait Fn<Args> : FnMut<Args> {
+    //     extern "rust-call" fn call(&self, args: Args) -> Self::Output;
+    // }
 }
