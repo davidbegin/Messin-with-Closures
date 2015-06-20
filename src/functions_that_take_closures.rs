@@ -5,31 +5,48 @@ pub fn let_let_let_me_in() {
     let result: i32 = call_with_one(add_one_closure);
     println!("result of method taking a closure: {}", result);
 
-    let mut name = "Juicy J";
-    let mut fancy_strang_closure = |x: String| {
-        let result = x.clone().push_str(name);
-        println!("result: {:?}", x);
-        1
+
+    // so what is the advantage of a closure,
+    // dynamic execution
+    //
+    // so how about a way of formatted different names for a struct
+
+    // so we need a Person struct
+    //
+    // and want to call print name and pass a template
+    //
+    // and the template is a closure to format printing something
+
+    let david = Person { name: "David".to_string() };
+
+    let fancy_name = |person: Person| {
+        let mut cloned_name: String = person.name.clone();
+        cloned_name.push_str(" Esquire");
+        cloned_name
     };
 
-    modifies_a_strang(fancy_strang_closure);
+    // let result = fancy_name(david);
+    // println!("Result {:?}", result);
+
+    print_name(fancy_name(david));
+}
+
+struct Person {
+    name: String
+}
+
+
+// This is confusing why this doesn't work
+// the trait `for<'r> core::ops::FnOnce<(&'r str,)>` is not
+// implemented for the type `collections::string::String`')'`
+fn print_name<F>(name_format: F)
+    where F : Fn(&str) -> String {
+
+    println!("I am print name");
 }
 
 fn call_with_one<F>(some_closure: F) -> i32
     where F : Fn(i32) -> i32 {
 
     some_closure(1)
-}
-
-
-// so this method takes a closure
-//
-// and that closure is one that takes a &str
-// which in this case is "Esquire"
-fn modifies_a_strang<F>(strang_closure: F) -> i32
-    where F : Fn(String) -> i32 {
-
-    let strang = "Mr. ".to_string();
-
-    strang_closure(strang)
 }
