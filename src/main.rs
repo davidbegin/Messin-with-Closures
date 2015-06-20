@@ -1,5 +1,6 @@
 #![allow(unused_variables, unused_mut, dead_code)]
 extern crate type_printer;
+mod functions_that_take_closures;
 
 fn main() {
     println!("\nMessin' with Closures");
@@ -83,7 +84,8 @@ fn main() {
 
     println!("\n================================================");
     // the_main_event();
-    young_programmer_move_that_ownership_of_environment();
+    // young_programmer_move_that_ownership_of_environment();
+    functions_that_take_closures::let_let_let_me_in();
 }
 
 fn the_main_event() {
@@ -141,7 +143,8 @@ fn young_programmer_move_that_ownership_of_environment() {
     lemme_try_and_break_this_down();
 }
 
-def lemme_try_and_break_this_down() {
+// I need to come back to this when I understnd extern "rust-call" more
+fn lemme_try_and_break_this_down() {
     // pub trait Fn<Args> : FnMut<Args> {
     //     extern "rust-call" fn call(&self, args: Args) -> Self::Output;
     // }
