@@ -1,18 +1,21 @@
 #![allow(unused_variables, unused_mut, dead_code)]
 extern crate type_printer;
 mod functions_that_take_closures;
+mod pondering_closures;
 
 fn main() {
     println!("\nMessin' with Closures");
     println!("=====================\n");
+
+    pondering_closures::an_exploration();
 
     // so this is a very self explantory example
     //
     // it makes closures seem easy!
     //
     // but thats because I am not trying different things
-    let plus_ten = |x: i32| x + 10;
-    println!("100 plus 10 = {}", plus_ten(100));
+    // let plus_ten = |x: i32| x + 10;
+    // println!("100 plus 10 = {}", plus_ten(100));
 
     // What are some other examples of simple useless closures
     //
@@ -36,8 +39,8 @@ fn main() {
     // no method named `push_str` found for type `&'static str` in the current scope'`
 
     // This compiles!
-    let name_formalizer = |x: &'static str| "Mr. ".to_owned().push_str(x);
-    type_printer::print_type_of(&name_formalizer);
+    // let name_formalizer = |x: &'static str| "Mr. ".to_owned().push_str(x);
+    // type_printer::print_type_of(&name_formalizer);
     // #=> [closure((&'static str,))]'))]
     // interesting!
 
@@ -51,8 +54,8 @@ fn main() {
 
     // Challenge 2: Multiple Arguments
 
-    let point_zone = |x: i8, y: i8| [x, y];
-    type_printer::print_type_of(&point_zone);
+    // let point_zone = |x: i8, y: i8| [x, y];
+    // type_printer::print_type_of(&point_zone);
     // #=> closure((i8, i8)) -> [i8; 2]]
     //
     // woaaaah!
@@ -65,13 +68,13 @@ fn main() {
 
     // ...it worked! Time to read the next line of the docs
 
-    let plus_two = |x| {
-        let mut result: i32 = x;
-        result += 2;
-        result
-    };
-
-    type_printer::print_type_of(&plus_two);
+    // let plus_two = |x| {
+    //     let mut result: i32 = x;
+    //     result += 2;
+    //     result
+    // };
+    //
+    // type_printer::print_type_of(&plus_two);
     // #=> [closure((i32,)) -> i32]
 
     // So you don't have to declare returns for closures
@@ -82,10 +85,10 @@ fn main() {
 
     // alright time for the main event
 
-    println!("\n================================================");
+    // println!("\n================================================");
     // the_main_event();
     // young_programmer_move_that_ownership_of_environment();
-    functions_that_take_closures::let_let_let_me_in();
+    // functions_that_take_closures::let_let_let_me_in();
 }
 
 fn the_main_event() {

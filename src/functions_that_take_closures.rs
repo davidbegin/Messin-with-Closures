@@ -28,7 +28,7 @@ pub fn let_let_let_me_in() {
     // let result = fancy_name(david);
     // println!("Result {:?}", result);
 
-    print_name(fancy_name(david));
+    // print_name(fancy_name(david));
 }
 
 struct Person {
