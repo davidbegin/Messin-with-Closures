@@ -23,6 +23,25 @@ pub fn an_exploration() {
     };
 
     plus_two(10);
+
+    deeper();
 }
 
+fn deeper() {
+    // I make a mutable variable
+    let mut x  = 0;
+
+    // I create a closure that consumes that mutable variable
+    let mut plus_x = |num: i32| x += num;
+
+    let result = plus_x(5);
+    println!("Result: {:?}", result);
+
+    // so I can't use x, and result is nothing,
+    // since I just mutated x
+    // and returned nothing
+
+    // so how could I access this value?
+
+}
 
