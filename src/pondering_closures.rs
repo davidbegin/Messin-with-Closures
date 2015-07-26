@@ -6,7 +6,7 @@ pub fn an_exploration() {
     let plus_one = |x: i32| x + 1;
     let fake_plus_one = |x: i32| plus_one(x);
 
-    type_printer::print_type_of(&plus_one);
+    // type_printer::print_type_of(&plus_one);
     // [closure((i32,)) -> i32]
     //
     // a closure that takes an i32 and returns an i32
@@ -24,7 +24,23 @@ pub fn an_exploration() {
 
     plus_two(10);
 
-    deeper();
+    // deeper();
+
+    strangs();
+}
+
+fn strangs() {
+    // so can I make a closure that converts a str to string
+
+    let str_to_string = |strang: &str| {
+        let result = strang.to_string();
+        result
+    };
+
+    let strang: &str = "woah";
+    let result = str_to_string(strang);
+    type_printer::print_type_of(&result);
+    println!("{}", result);
 }
 
 fn deeper() {
@@ -32,16 +48,12 @@ fn deeper() {
     let mut x  = 0;
 
     // I create a closure that consumes that mutable variable
-    let mut plus_x = |num: i32| x += num;
+    let mut plus_x = |num: i32| {
+        x += num;
+        x
+    };
 
     let result = plus_x(5);
-    println!("Result: {:?}", result);
-
-    // so I can't use x, and result is nothing,
-    // since I just mutated x
-    // and returned nothing
-
-    // so how could I access this value?
-
+    println!("{}", result);
 }
 
