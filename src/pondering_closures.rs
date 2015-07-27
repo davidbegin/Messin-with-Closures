@@ -25,8 +25,35 @@ pub fn an_exploration() {
     plus_two(10);
 
     // deeper();
+    // strangs();
+    moving_out();
+}
 
-    strangs();
+fn moving_out() {
+    let mut num = 5;
+
+    {
+        let mut add_num = |x: i32| {
+            num += x;
+            num
+        };
+        let result = add_num(10);
+        println!("result: {}", result);
+        // println!("num: {}", num); // won't work
+    }
+
+    let mut num = 5;
+
+    {
+        let mut add_num = move |x: i32| {
+            num += x;
+            num
+        };
+        let result = add_num(10);
+        println!("result: {}", result);
+        println!("num: {}", num); // works thanks to move
+    }
+
 }
 
 fn strangs() {
